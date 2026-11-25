@@ -34,6 +34,12 @@ if (words < 95 || words > 105) {
   throw new Error(`Monologue is ${words} words; must be about 100 (95-105).`);
 }
 
+// The brief: the tiredness must be felt, never announced — refuse any
+// plain statement of weariness slipping into the text.
+if (/\b(tired|weary|exhausted|fatigued)\b/i.test(MONOLOGUE)) {
+  throw new Error("Monologue must show tiredness, never announce it.");
+}
+
 function writeEntry(outDir: string): string {
   const outPath = join(outDir, "entry.txt");
   mkdirSync(dirname(outPath), { recursive: true });
